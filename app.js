@@ -23,7 +23,6 @@ form.addEventListener('submit', function(e){
     let newTask = document.createElement('li');
     let deleteBtn = document.createElement('button');
     newTask.innerText = taskInput.value;
-    console.dir(newTask);
     deleteBtn.innerText = 'Delete';
     newTask.isCompleted = false;
     newTask.append(deleteBtn);
@@ -32,7 +31,6 @@ form.addEventListener('submit', function(e){
 
     // Save to localStorage
     storedToDoList.push({ task: newTask.firstChild.textContent, isCompleted: false });
-    console.dir(storedToDoList);
     updateLocalStorage();
 });
 
@@ -41,7 +39,6 @@ function findIndex(clickedTask) {
     for (let i = 0; i < storedToDoList.length; i++) {
         if (storedToDoList[i].task === clickedTask.firstChild.textContent) {
             let foundIndex = [i];
-            // console.log('foundIndex: ' + foundIndex);
             return(foundIndex);
             break;
         }
@@ -54,7 +51,6 @@ toDoList.addEventListener('click', function(e){
     let clicked = e.target;
     if (clicked.tagName === 'LI') {
         let storageIndex = findIndex(clicked);
-        console.log('storage index: ' + storageIndex);
         if(!clicked.isCompleted) {
             clicked.isCompleted = true;
             clicked.style.textDecoration = 'line-through';
@@ -65,14 +61,11 @@ toDoList.addEventListener('click', function(e){
         storedToDoList[storageIndex].isCompleted = false;
         }
     } else if (clicked.tagName === 'BUTTON') {
-        console.dir(clicked.parentElement.firstChild.textContent);   
         let storageIndex = findIndex(clicked.parentElement);
-        console.log('storage index: ' + storageIndex);
         clicked.parentElement.remove();
         storedToDoList.splice(storageIndex, 1);
         
     }
-    console.dir(storedToDoList);
     updateLocalStorage();
 });
 
